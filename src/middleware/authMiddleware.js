@@ -37,6 +37,7 @@ const authMiddleware = {
 
     isAdmin: async (resolve, source, args, context, info) => {
         const { user } = context;
+        
 
         if (user.role !== 'admin') {
             return Promise.reject(new Error('You must be an admin'));

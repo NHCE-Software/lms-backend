@@ -14,9 +14,10 @@ const authentication = async ({ req }) => {
         }
 
         const accessToken = authorization;
+        
 
         const decoded = jwt.verify(accessToken, 'hello');
-
+        
         if (!decoded) {
             return {};
         }

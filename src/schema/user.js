@@ -18,7 +18,7 @@ const UserQuery = {
 
 const UserMutation = {
     signIn: UserTC.getResolver('signIn', [authMiddleware.isGuest]),
-    userCreateOne: UserTC.getResolver('createOne', [authMiddleware.isAdmin]),
+    userCreateOne: UserTC.getResolver('createOne'),
     userCreateMany: UserTC.getResolver('createMany', [authMiddleware.isAdmin]),
     userUpdateById: UserTC.getResolver('updateById', [authMiddleware.isAdmin]),
     userUpdateOne: UserTC.getResolver('updateOne', [authMiddleware.isAdmin]),
