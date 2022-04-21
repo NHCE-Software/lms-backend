@@ -15,7 +15,7 @@ const hello = {
 
 const signIn = {
     name: 'signIn',
-    type: 'String!',
+    type: 'JSON!',
     args: {
         email: 'String!',
         password: 'String!',
