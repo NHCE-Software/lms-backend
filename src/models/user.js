@@ -35,6 +35,8 @@ UserSchema.statics.emailExist = function (email) {
     return this.findOne({ email });
 };
 
+// Phone Number
+
 UserSchema.pre('save', function (next) {
     var user = this;
     if (!user.isModified('password')) return next();

@@ -19,7 +19,7 @@ const LeadQuery = {
 const LeadMutation = {
     
     leadCreateOne: LeadTC.getResolver('createOne'),
-    leadCreateMany: LeadTC.getResolver('createMany', [authMiddleware.isAdmin]),
+    leadCreateMany: LeadTC.getResolver('createMany'),
     leadUpdateById: LeadTC.getResolver('updateById', [authMiddleware.isAdmin]),
     leadUpdateOne: LeadTC.getResolver('updateOne', [authMiddleware.isAdmin]),
     leadUpdateMany: LeadTC.getResolver('updateMany', [authMiddleware.isAdmin]),

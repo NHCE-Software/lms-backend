@@ -37,7 +37,10 @@ const signIn = {
                 'hello'
             );
 
-            return accessToken;
+            return {
+                token: accessToken,
+                role: user.role,
+            };
         } catch (error) {
             return Promise.reject(error);
         }

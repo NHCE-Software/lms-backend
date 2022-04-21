@@ -44,7 +44,7 @@ export const LeadSchema = new Schema(
             trim: true,
         },
         course: {
-            type: String,
+            type: [String],
             trim: true,
         },
         status: [StatusSchema],
@@ -53,6 +53,14 @@ export const LeadSchema = new Schema(
         collection: 'leads',
     }
 );
+LeadSchema.pre('insertMany',function (next){
+    var leads = this;
+    leads.forEach(lead => {
+        console.log(lead)
+    }
+    );
+    next();
 
+})
 export const Lead = mongoose.model('Lead', LeadSchema);
 export const LeadTC = composeWithMongoose(Lead);
