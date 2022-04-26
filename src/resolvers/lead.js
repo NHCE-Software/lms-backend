@@ -61,7 +61,7 @@ const getLeads  = {
         try {
             
 
-            if (user.role!=="admin") {
+            if (user.role==="admin") {
                 console.log("heww")
                 const leads = await Lead.find();
                 return leads;
