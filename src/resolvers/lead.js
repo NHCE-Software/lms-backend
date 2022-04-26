@@ -40,6 +40,7 @@ const addCall = {
                         calls: {
                             remark: calldata.remark,
                             updatedby: user._id,
+                            updatedbyname: user.name,
                             followup: calldata.followup,
                         },
                     },
@@ -51,7 +52,33 @@ const addCall = {
         } catch (error) {}
     },
 };
+
+const getLeads  = {
+    name: 'getLeads',
+    type: '[Lead]',
+    args: { record: 'JSON' },
+    resolve: async ({ context: { user } }) => {
+        try {
+            
+
+            if (user.role!=="admin") {
+                console.log("heww")
+                const leads = await Lead.find();
+                return leads;
+            } else {
+                
+                const leads = await Lead.find({loadedby:{$elemMatch:{$eq:user._id}}});
+                return leads;
+            }
+            
+        } catch (error) {}
+    },
+};
+
+
+
 module.exports = {
     addLeads,
     addCall,
+    getLeads,
 };

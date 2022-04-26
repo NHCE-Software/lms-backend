@@ -33,7 +33,7 @@ const signIn = {
             }
 
             const accessToken = jwt.sign(
-                { userId: user._id, role: user.role, email: user.email },
+                { userId: user._id, role: user.role, email: user.email, name: user.name },
                 'hello'
             );
 
@@ -74,6 +74,38 @@ const removeOneUser = {
         }
     },
 };
+
+const checkpageaccess = {
+    name: 'checkpageaccess',
+    type: 'JSON!',
+    args: {
+        token: "String"
+    },
+    resolve: async ({ args:{token}, context: { user } }) => {
+        try {
+            const decoded = jwt.verify(token, 'hello');
+            if (decoded.role === "admin") {
+                return {
+                    message: 'admin',
+                };
+            }
+            else if (decoded.role === "client") {
+                return {
+                    message: 'client',
+                };
+            }
+            else{
+                return {
+                    message: 'error',
+                };
+            }
+
+        }
+        catch (error) {
+        }
+    }
+}
+
 
 module.exports = {
     hello,
