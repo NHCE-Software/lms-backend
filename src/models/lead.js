@@ -16,6 +16,9 @@ export const CallsSchema = new Schema(
         followup: {
             type: String,
         },
+        updatedbyname: {
+            type: String,
+        },
     },
     { timestamps: true }
 );

@@ -17,7 +17,9 @@ const addLeads = {
     resolve: async ({ args }) => {
         try {
             let leads = args.record;
-            leads.map();
+            leads.map(lead => {
+                
+            });
         } catch (error) {
             throw new Error(error);
         }
