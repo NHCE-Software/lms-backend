@@ -50,8 +50,13 @@ export const LeadSchema = new Schema(
         status: {
             type: String,
             trim: true,
+            default:"Not Contacted"
         },
         course: {
+            type: [String],
+            trim: true,
+        },
+        source: {
             type: [String],
             trim: true,
         },

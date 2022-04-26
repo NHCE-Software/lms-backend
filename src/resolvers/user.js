@@ -50,33 +50,27 @@ const removeOneUser = {
     name: 'removeOneUser',
     type: 'JSON!',
     args: {
-        filter: "JSON"
+        filter: 'JSON',
     },
-    resolve: async ({ args,context: { user } }) => {
+    resolve: async ({ args, context: { user } }) => {
         try {
-            
-            let userid = user._id.toString()
-            
-            if (userid===args.filter._id){
-                return {
-                    message:"deleteblocked"
-                }
-            }
-            else{
-                const user = await User.deleteOne({"_id":args.filter._id})
-                console.log(user)
-                return {
-                    message:"successful"
-                }
+            let userid = user._id.toString();
 
+            if (userid === args.filter._id) {
+                return {
+                    message: 'deleteblocked',
+                };
+            } else {
+                const user = await User.deleteOne({ _id: args.filter._id });
+                console.log(user);
+                return {
+                    message: 'successful',
+                };
             }
-            
-
-            
         } catch (error) {
             return {
-                message:"error"
-            }
+                message: 'error',
+            };
         }
     },
 };
@@ -84,5 +78,5 @@ const removeOneUser = {
 module.exports = {
     hello,
     signIn,
-    removeOneUser
+    removeOneUser,
 };

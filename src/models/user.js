@@ -33,7 +33,7 @@ UserSchema.index({ createdAt: 1, updatedAt: 1 });
 
 UserSchema.statics.emailExist = function (email) {
     return this.findOne({ email });
-};
+};  
 
 // Phone Number
 

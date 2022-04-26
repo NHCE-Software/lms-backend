@@ -1,9 +1,9 @@
 import { authMiddleware } from '../middleware/authMiddleware';
 import { LeadTC } from '../models/lead';
-import { addLeads } from '../resolvers/lead';
+import { addLeads, addCall } from '../resolvers/lead';
 
 LeadTC.addResolver(addLeads);
-
+LeadTC.addResolver(addCall);
 
 const LeadQuery = {
     leadById: LeadTC.getResolver('findById'),
@@ -18,7 +18,7 @@ const LeadQuery = {
 
 const LeadMutation = {
     addleads: LeadTC.getResolver("addLeads"),
-    
+    addCall: LeadTC.getResolver("addCall"),
     leadCreateOne: LeadTC.getResolver('createOne'),
     leadCreateMany: LeadTC.getResolver('createMany'),
     leadUpdateById: LeadTC.getResolver('updateById', [authMiddleware.isAdmin]),
