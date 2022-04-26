@@ -1,15 +1,19 @@
 import mongoose, { Schema } from 'mongoose';
 import { composeWithMongoose } from 'graphql-compose-mongoose';
 
-export const StatusSchema = new Schema(
+export const CallsSchema = new Schema(
     {
         call: {
             type: Number,
         },
-        response: {
+        remark: {
             type: String,
         },
-        notes: {
+        updatedby:{
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+        },
+        followup: {
             type: String,
         },
     },
@@ -22,8 +26,8 @@ export const LeadSchema = new Schema(
             type: String,
             trim: true,
         },
-        userID:{
-            type: Schema.Types.ObjectId,
+        loadedby:{
+            type: [Schema.Types.ObjectId],
             ref: 'User',
         },
         email: {
@@ -43,14 +47,19 @@ export const LeadSchema = new Schema(
             type: String,
             trim: true,
         },
+        status: {
+            type: String,
+            trim: true,
+        },
         course: {
             type: [String],
             trim: true,
         },
-        status: [StatusSchema],
+        calls: [CallsSchema],
     },
     {
         collection: 'leads',
+        timestamps: true
     }
 );
 LeadSchema.pre('insertMany',function (next){
