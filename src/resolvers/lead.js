@@ -14,11 +14,27 @@ const addLeads = {
     type: 'JSON',
     args: { record: '[JSON]' },
 
-    resolve: async ({ args }) => {
+    resolve: async ({ args,context:{user} }) => {
         try {
             let leads = args.record;
-            leads.map(lead => {
+            leads.map(async(lead) => {
+                const leadData =  await Lead.findOne({$or:[{email:lead.email},{phonenumber:lead.phonenumber}]});
                 
+                if(leadData){
+                    console.log("I am here")
+                    console.log(leadData)
+                    leadData.loadedby.indexOf(user._id.toString())===-1? leadData.loadedby.push(user._id):console.log("f")
+                    leadData.source.indexOf(lead.source)===-1? leadData.source.push(lead.source):console.log("j")
+                    leadData.course.indexOf(lead.course)===-1? leadData.course.push(lead.course):console.log("k")
+                    console.log(leadData)
+                    leadData.save();
+                }
+                else{
+                    console.log("I am there")
+                    lead.loadedby = [user._id];
+                    Lead.create(lead);
+
+                }
             });
         } catch (error) {
             throw new Error(error);
