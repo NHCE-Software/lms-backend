@@ -9,7 +9,7 @@ export const CallsSchema = new Schema(
         remark: {
             type: String,
         },
-        updatedby:{
+        updatedby: {
             type: Schema.Types.ObjectId,
             ref: 'User',
         },
@@ -29,9 +29,12 @@ export const LeadSchema = new Schema(
             type: String,
             trim: true,
         },
-        loadedby:{
+        loadedby: {
             type: [Schema.Types.ObjectId],
             ref: 'User',
+        },
+        loadedbyname: {
+            type: [String],
         },
         email: {
             type: String,
@@ -53,7 +56,7 @@ export const LeadSchema = new Schema(
         status: {
             type: String,
             trim: true,
-            default:"Not Contacted"
+            default: 'Not Contacted',
         },
         course: {
             type: [String],
@@ -67,17 +70,15 @@ export const LeadSchema = new Schema(
     },
     {
         collection: 'leads',
-        timestamps: true
+        timestamps: true,
     }
 );
-LeadSchema.pre('insertMany',function (next){
+LeadSchema.pre('insertMany', function (next) {
     var leads = this;
-    leads.forEach(lead => {
-        console.log(lead)
-    }
-    );
+    leads.forEach((lead) => {
+        console.log(lead);
+    });
     next();
-
-})
+});
 export const Lead = mongoose.model('Lead', LeadSchema);
 export const LeadTC = composeWithMongoose(Lead);

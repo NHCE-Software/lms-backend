@@ -17,66 +17,43 @@ const addLeads = {
     resolve: async ({ args, context: { user } }) => {
         try {
             let leads = args.record;
-            // leads.map(async (lead) => {
-            //     const leadData = await Lead.findOne({
-            //         $or: [
-            //             { email: lead.email },
-            //             { phonenumber: lead.phonenumber },
-            //         ],
-            //     });
 
-            //     if (leadData) {
-            //         console.log('I am here');
-            //         console.log(leadData);
-            //         leadData.loadedby.indexOf(user._id.toString()) === -1
-            //             ? leadData.loadedby.push(user._id)
-            //             : console.log('f');
-            //         leadData.source.indexOf(lead.source) === -1
-            //             ? leadData.source.push(lead.source)
-            //             : console.log('j');
-            //         leadData.course.indexOf(lead.course) === -1
-            //             ? leadData.course.push(lead.course)
-            //             : console.log('k');
-            //         console.log(leadData);
-            //         leadData.save();
-            //     } else {
-            //         console.log('I am there');
-            //         lead.loadedby = [user._id];
-            //         let newLead = new Lead({...lead})
-            //         await newLead.save()
-
-            //     }
-            // });
-            for(let i = 0;i<leads.length;i++){
+            for (let i = 0; i < leads.length; i++) {
                 const leadData = await Lead.findOne({
-                            $or: [
-                                { email: leads[i].email },
-                                { phonenumber: leads[i].phonenumber },
-                            ],
-                        });
-        
-                        if (leadData) {
-                            console.log('I am here');
-                            console.log(leadData);
-                            leadData.loadedby.indexOf(user._id.toString()) === -1
-                                ? leadData.loadedby.push(user._id)
-                                : console.log('f');
-                            leadData.source.indexOf(leads[i].source) === -1
-                                ? leadData.source.push(leads[i].source)
-                                : console.log('j');
-                            leadData.course.indexOf(leads[i].course) === -1
-                                ? leadData.course.push(leads[i].course)
-                                : console.log('k');
-                            console.log(leadData);
-                            leadData.save();
-                        } else {
-                            console.log('I am there');
-                            leads[i].loadedby = [user._id];
-                            let newLead = new Lead({...leads[i]})
-                            await newLead.save()
-        
-                        }
+                    $or: [
+                        { email: leads[i].email },
+                        { phonenumber: leads[i].phonenumber },
+                    ],
+                });
 
+                if (leadData) {
+                    console.log('I am here');
+                    console.log(leadData);
+                    leadData.loadedby.indexOf(user._id.toString()) === -1
+                        ? leadData.loadedby.push(user._id)
+                        : console.log('f');
+
+                    leadData.loadedbyname.indexOf(user.name) === -1
+                        ? leadData.loadedbyname.push(user.name)
+                        : console.log('f');
+
+                    leadData.source.indexOf(leads[i].source) === -1
+                        ? leadData.source.push(leads[i].source)
+                        : console.log('j');
+
+                    leadData.course.indexOf(leads[i].course) === -1
+                        ? leadData.course.push(leads[i].course)
+                        : console.log('k');
+
+                    console.log(leadData);
+                    leadData.save();
+                } else {
+                    console.log('I am there');
+                    leads[i].loadedby = [user._id];
+                    leads[i].loadedbyname = [user.name];
+                    let newLead = new Lead({ ...leads[i] });
+                    await newLead.save();
+                }
             }
         } catch (error) {
             throw new Error(error);
@@ -124,8 +101,9 @@ const getLeads = {
                 const leads = await Lead.find();
                 return leads;
             } else if (user.role === 'admin' && args.record.callerid) {
-                const leads = await Lead.find({ _id: args.record.callerid });
-                return leads;
+                const leads = await Lead.find({
+                    loadedby: { $elemMatch: { $eq: args.record.callerid } },
+                });
             } else {
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: user._id } },
