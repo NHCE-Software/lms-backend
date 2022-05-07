@@ -101,6 +101,7 @@ const addOneLead = {
 
                 console.log(leadData);
                 leadData.save();
+                return { message: 'success' };
             } else {
                 console.log('I am there');
                 onelead.loadedby = [user._id];
@@ -117,6 +118,7 @@ const addOneLead = {
                 delete onelead.followup;
                 let newLead = new Lead({ ...onelead });
                 await newLead.save();
+                return { message: 'success' };
             }
         } catch (error) {
             throw new Error(error);
