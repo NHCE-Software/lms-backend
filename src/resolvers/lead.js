@@ -98,10 +98,16 @@ const addOneLead = {
                     : console.log('j');
 
                 // Add First Call Data
+                leadData.phonenumber2 = onelead.phonenumber2;
+                leadData.admcateg = onelead.admcateg;
+                leadData.address = onelead.address;
+                leadData.reference = onelead.reference;
+                leadData.nameofboard = onelead.nameofboard;
+                leadData.regnum12 = onelead.regnum12;
 
                 console.log(leadData);
                 leadData.save();
-                return { message: 'success' };
+                return { message: 'success',id:leadData._id };
             } else {
                 console.log('I am there');
                 onelead.loadedby = [user._id];
@@ -117,8 +123,10 @@ const addOneLead = {
                 delete onelead.remark;
                 delete onelead.followup;
                 let newLead = new Lead({ ...onelead });
-                await newLead.save();
-                return { message: 'success' };
+
+                const res = await newLead.save();
+                console.log(res);
+                return { message: 'success', id: res._id };
             }
         } catch (error) {
             throw new Error(error);
