@@ -46,6 +46,9 @@ const signIn = {
         }
     },
 };
+
+// Get all the data from client
+
 const removeOneUser = {
     name: 'removeOneUser',
     type: 'JSON!',

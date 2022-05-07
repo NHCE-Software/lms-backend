@@ -66,6 +66,27 @@ export const LeadSchema = new Schema(
             type: [String],
             trim: true,
         },
+        
+        phonenumber2:{
+            type: String,
+        },
+
+        admcateg: {
+            type: String,
+        },
+        address:{
+            type: String,
+        },
+        reference:{
+            type: String,
+        },
+        nameofboard:{
+            type: String,
+        },
+        regnum12:{
+            type: String,
+        },
+        
         calls: [CallsSchema],
     },
     {

@@ -61,6 +61,68 @@ const addLeads = {
     },
 };
 
+const addOneLead = {
+    name: 'addOneLead',
+    type: 'JSON',
+    args: { record: 'JSON' },
+
+    resolve: async ({ args, context: { user } }) => {
+        try {
+            let onelead = args.record;
+            const leadData = await Lead.findOne({
+                $or: [
+                    { email: onelead.email },
+                    { phonenumber: onelead.phonenumber },
+                ],
+            });
+
+            if (leadData) {
+                // Send count to analytics
+                console.log('I am here');
+                console.log(leadData);
+                leadData.loadedby.indexOf(user._id.toString()) === -1
+                    ? leadData.loadedby.push(user._id)
+                    : console.log('f');
+
+                leadData.loadedbyname.indexOf(user.name) === -1
+                    ? leadData.loadedbyname.push(user.name)
+                    : console.log('f');
+
+                for (let i = 0; i < onelead.course.length; i++) {
+                    leadData.course.indexOf(onelead.course[i]) === -1
+                        ? leadData.course.push(onelead.course[i])
+                        : console.log('k');
+                }
+                leadData.source.indexOf(onelead.source) === -1
+                    ? leadData.source.push(onelead.source)
+                    : console.log('j');
+
+                // Add First Call Data
+
+                console.log(leadData);
+                leadData.save();
+            } else {
+                console.log('I am there');
+                onelead.loadedby = [user._id];
+                onelead.calls = [
+                    {
+                        remark: onelead.remark,
+                        updatedby: user._id,
+                        updatedbyname: user.name,
+                        followup: onelead.followup,
+                    },
+                ];
+                onelead.loadedbyname = [user.name];
+                delete onelead.remark;
+                delete onelead.followup;
+                let newLead = new Lead({ ...onelead });
+                await newLead.save();
+            }
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+};
 // Add Calls to Lead
 const addCall = {
     name: 'addCall',
@@ -118,4 +180,5 @@ module.exports = {
     addLeads,
     addCall,
     getLeads,
+    addOneLead,
 };

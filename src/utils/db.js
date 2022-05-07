@@ -7,13 +7,9 @@ mongoose.Promise = global.Promise;
 
 const connection = mongoose.connect(process.env.MONGODB_URL, {
     autoIndex: true,
-   
-    
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-
-
 
 connection
     .then((db) => {
