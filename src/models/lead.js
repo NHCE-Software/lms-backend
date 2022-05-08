@@ -66,7 +66,7 @@ export const LeadSchema = new Schema(
             type: [String],
             trim: true,
         },
-        
+
         phonenumber2:{
             type: String,
         },
@@ -78,7 +78,7 @@ export const LeadSchema = new Schema(
             type: String,
         },
         reference:{
-            type: String,
+            type: [String],
         },
         nameofboard:{
             type: String,
