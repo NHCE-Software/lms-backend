@@ -98,6 +98,12 @@ const addOneLead = {
                     : console.log('j');
 
                 // Add First Call Data
+                leadData.calls.push({
+                    remark: onelead.remark,
+                    updatedby: user._id,
+                    updatedbyname: user.name,
+                    followup: onelead.followup,
+                })
                 leadData.phonenumber2 = onelead.phonenumber2;
                 leadData.admcateg = onelead.admcateg;
                 leadData.address = onelead.address;
