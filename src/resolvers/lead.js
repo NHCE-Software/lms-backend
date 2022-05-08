@@ -176,16 +176,16 @@ const getLeads = {
         try {
             if (user.role === 'admin') {
                 console.log('heww');
-                const leads = await Lead.find();
+                const leads = await Lead.find().sort({ createdAt: -1 });
                 return leads;
             } else if (user.role === 'admin' && args.record.callerid) {
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: args.record.callerid } },
-                });
+                }).sort({ createdAt: -1 });
             } else {
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: user._id } },
-                });
+                }).sort({ createdAt: -1 });
                 return leads;
             }
         } catch (error) {}
