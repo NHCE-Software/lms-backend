@@ -21,8 +21,18 @@ const addLeads = {
             for (let i = 0; i < leads.length; i++) {
                 const leadData = await Lead.findOne({
                     $or: [
-                        { email: leads[i].email },
-                        { phonenumber: leads[i].phonenumber },
+                        {
+                            email:
+                                leads[i].email === ''
+                                    ? undefined
+                                    : leads[i].email,
+                        },
+                        {
+                            phonenumber:
+                                leads[i].phonenumber === ''
+                                    ? undefined
+                                    : leads[i].phonenumber,
+                        },
                     ],
                 });
 
@@ -71,8 +81,13 @@ const addOneLead = {
             let onelead = args.record;
             const leadData = await Lead.findOne({
                 $or: [
-                    { email: onelead.email },
-                    { phonenumber: onelead.phonenumber },
+                    { email: onelead.email === '' ? undefined : onelead.email },
+                    {
+                        phonenumber:
+                            onelead.phonenumber === ''
+                                ? undefined
+                                : onelead.phonenumber,
+                    },
                 ],
             });
 
@@ -103,19 +118,21 @@ const addOneLead = {
                     updatedby: user._id,
                     updatedbyname: user.name,
                     followup: onelead.followup,
-                })
+                });
                 leadData.phonenumber2 = onelead.phonenumber2;
                 leadData.admcateg = onelead.admcateg;
                 leadData.address = onelead.address;
                 leadData.reference = onelead.reference;
                 leadData.nameofboard = onelead.nameofboard;
                 leadData.regnum12 = onelead.regnum12;
+                leadData.status = onelead.status;
 
                 console.log(leadData);
                 leadData.save();
-                return { message: 'success',id:leadData._id };
+                return { message: 'success', id: leadData._id };
             } else {
                 console.log('I am there');
+                console.log(onelead);
                 onelead.loadedby = [user._id];
                 onelead.calls = [
                     {
@@ -132,6 +149,7 @@ const addOneLead = {
 
                 const res = await newLead.save();
                 console.log(res);
+
                 return { message: 'success', id: res._id };
             }
         } catch (error) {
