@@ -62,6 +62,10 @@ export const LeadSchema = new Schema(
             type: [String],
             trim: true,
         },
+        program:{
+            type: String,
+            trim:true,
+        },
         source: {
             type: [String],
             trim: true,

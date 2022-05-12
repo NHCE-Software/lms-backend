@@ -54,6 +54,9 @@ const addLeads = {
                     leadData.course.indexOf(leads[i].course) === -1
                         ? leadData.course.push(leads[i].course)
                         : console.log('k');
+                    
+                    leadData.program = leads[i].program;
+                    
 
                     console.log(leadData);
                     leadData.save();
@@ -126,6 +129,7 @@ const addOneLead = {
                 leadData.nameofboard = onelead.nameofboard;
                 leadData.regnum12 = onelead.regnum12;
                 leadData.status = onelead.status;
+                leadData.program = onelead.program;
 
                 console.log(leadData);
                 leadData.save();
