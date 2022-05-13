@@ -196,21 +196,32 @@ const getLeads = {
     args: { record: 'JSON' },
     resolve: async ({ args, context: { user } }) => {
         try {
-            if (user.role === 'admin') {
-                console.log('heww');
-                const leads = await Lead.find().sort({ createdAt: -1 });
-                return leads;
-            } else if (user.role === 'admin' && args.record.callerid) {
-                const leads = await Lead.find({
-                    loadedby: { $elemMatch: { $eq: args.record.callerid } },
-                }).sort({ createdAt: -1 });
-            } else {
+            if(user.role != "admin"){
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: user._id } },
                 }).sort({ createdAt: -1 });
                 return leads;
             }
-        } catch (error) {}
+            console.log("outside second if")
+            if( args.record && (user.role === "admin" && args.record.callerid)) {
+                const leads = await Lead.find({
+                    loadedby: { $elemMatch: { $eq: args.record.callerid } },
+                }).sort({ createdAt: -1 });
+                return leads
+            }
+            console.log("outside third if")
+
+            if(user.role === 'admin'){
+                const leads = await Lead.find().sort({ createdAt: -1 });
+                return leads;
+            }
+
+
+           
+            
+        } catch (error) {
+            console.log(error)
+        }
     },
 };
 
