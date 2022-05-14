@@ -1,16 +1,16 @@
 import { authMiddleware } from '../middleware/authMiddleware';
 import { User, UserTC } from '../models/user';
-import { hello, signIn,removeOneUser } from '../resolvers/user';
+import { hello, signIn, removeOneUser } from '../resolvers/user';
 
 UserTC.addResolver(hello);
 UserTC.addResolver(signIn);
-UserTC.addResolver(removeOneUser)
+UserTC.addResolver(removeOneUser);
 
 const UserQuery = {
     userById: UserTC.getResolver('findById'),
     userByIds: UserTC.getResolver('findByIds'),
     userOne: UserTC.getResolver('findOne'),
-    userMany: UserTC.getResolver('findMany'),
+    userMany: UserTC.getResolver('findMany', [authMiddleware.isAdmin]),
     userCount: UserTC.getResolver('count'),
     userConnection: UserTC.getResolver('connection'),
     userPagination: UserTC.getResolver('pagination'),
@@ -25,7 +25,9 @@ const UserMutation = {
     userUpdateOne: UserTC.getResolver('updateOne', [authMiddleware.isAdmin]),
     userUpdateMany: UserTC.getResolver('updateMany', [authMiddleware.isAdmin]),
     userRemoveById: UserTC.getResolver('removeById', [authMiddleware.isAdmin]),
-    userRemoveOne: UserTC.getResolver('removeOneUser', [authMiddleware.isAdmin]),
+    userRemoveOne: UserTC.getResolver('removeOneUser', [
+        authMiddleware.isAdmin,
+    ]),
     userRemoveMany: UserTC.getResolver('removeMany', [authMiddleware.isAdmin]),
 };
 
