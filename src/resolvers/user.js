@@ -97,7 +97,7 @@ const changePass = {
             );
             if (!comparePassword) {
                 return {
-                    message: 'Not allowed',
+                    message: 'Incorrect Password',
                 };
             } else {
                 const salt = bcrypt.genSaltSync(10);
