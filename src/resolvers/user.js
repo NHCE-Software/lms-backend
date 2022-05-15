@@ -94,7 +94,7 @@ const changePass = {
             let userid = user._id.toString();
             const salt = bcrypt.genSaltSync(10);
             const hash = bcrypt.hashSync(args.record.password, salt);
-            const user = await User.updateOne(
+            const users = await User.updateOne(
                 { _id: userid },
                 { password: hash }
             );
