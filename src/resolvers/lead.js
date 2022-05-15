@@ -204,6 +204,7 @@ const getLeads = {
             }
             console.log("outside second if")
             if( args.record && (user.role === "admin" && args.record.callerid)) {
+                console.log(args.record.callerid)
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: args.record.callerid } },
                 }).sort({ createdAt: -1 });
