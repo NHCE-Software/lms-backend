@@ -1,10 +1,11 @@
 import { authMiddleware } from '../middleware/authMiddleware';
 import { User, UserTC } from '../models/user';
-import { hello, signIn, removeOneUser } from '../resolvers/user';
+import { hello, signIn, removeOneUser, changePass } from '../resolvers/user';
 
 UserTC.addResolver(hello);
 UserTC.addResolver(signIn);
 UserTC.addResolver(removeOneUser);
+UserTC.addResolver(changePass);
 
 const UserQuery = {
     userById: UserTC.getResolver('findById'),
@@ -19,6 +20,7 @@ const UserQuery = {
 
 const UserMutation = {
     signIn: UserTC.getResolver('signIn', [authMiddleware.isGuest]),
+    changePass: UserTC.getResolver('changePass'),
     userCreateOne: UserTC.getResolver('createOne'),
     userCreateMany: UserTC.getResolver('createMany', [authMiddleware.isAdmin]),
     userUpdateById: UserTC.getResolver('updateById', [authMiddleware.isAdmin]),

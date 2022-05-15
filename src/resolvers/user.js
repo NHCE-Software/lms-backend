@@ -33,7 +33,12 @@ const signIn = {
             }
 
             const accessToken = jwt.sign(
-                { userId: user._id, role: user.role, email: user.email, name: user.name },
+                {
+                    userId: user._id,
+                    role: user.role,
+                    email: user.email,
+                    name: user.name,
+                },
                 'hello'
             );
 
@@ -78,40 +83,61 @@ const removeOneUser = {
     },
 };
 
+const changePass = {
+    name: 'changePass',
+    type: 'JSON!',
+    args: {
+        record: 'JSON',
+    },
+    resolve: async ({ args, context: { user } }) => {
+        try {
+            let userid = user._id.toString();
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(args.record.password, salt);
+            const user = await User.updateOne(
+                { _id: userid },
+                { password: hash }
+            );
+            return {
+                message: 'success',
+            };
+        } catch (error) {
+            return {
+                message: 'error',
+            };
+        }
+    },
+};
+
 const checkpageaccess = {
     name: 'checkpageaccess',
     type: 'JSON!',
     args: {
-        token: "String"
+        token: 'String',
     },
-    resolve: async ({ args:{token}, context: { user } }) => {
+    resolve: async ({ args: { token }, context: { user } }) => {
         try {
             const decoded = jwt.verify(token, 'hello');
-            if (decoded.role === "admin") {
+            if (decoded.role === 'admin') {
                 return {
                     message: 'admin',
                 };
-            }
-            else if (decoded.role === "client") {
+            } else if (decoded.role === 'client') {
                 return {
                     message: 'client',
                 };
-            }
-            else{
+            } else {
                 return {
                     message: 'error',
                 };
             }
-
-        }
-        catch (error) {
-        }
-    }
-}
-
+        } catch (error) {}
+    },
+};
 
 module.exports = {
     hello,
     signIn,
     removeOneUser,
+    changePass,
 };
