@@ -92,15 +92,24 @@ const changePass = {
     resolve: async ({ args, context: { user } }) => {
         try {
             let userid = user._id.toString();
-            const salt = bcrypt.genSaltSync(10);
-            const hash = bcrypt.hashSync(args.record.password, salt);
-            const users = await User.updateOne(
-                { _id: userid },
-                { password: hash }
+            const comparePassword = await user.comparePassword(
+                args.record.oldpassword
             );
-            return {
-                message: 'success',
-            };
+            if (!comparePassword) {
+                return {
+                    message: 'Not allowed',
+                };
+            } else {
+                const salt = bcrypt.genSaltSync(10);
+                const hash = bcrypt.hashSync(args.record.newpassword, salt);
+                const users = await User.updateOne(
+                    { _id: userid },
+                    { password: hash }
+                );
+                return {
+                    message: 'success',
+                };
+            }
         } catch (error) {
             return {
                 message: 'error',
