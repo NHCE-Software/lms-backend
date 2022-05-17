@@ -20,7 +20,7 @@ const addLeads = {
 
             for (let i = 0; i < leads.length; i++) {
                 let query = [];
-                if (leads[i].hasOwnProperty('email') && leads[i] !== '') {
+                if (leads[i].hasOwnProperty('email') && leads[i].email !== '') {
                     query = [
                         {
                             email: leads[i].email,
