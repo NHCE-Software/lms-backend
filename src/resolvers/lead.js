@@ -19,21 +19,26 @@ const addLeads = {
             let leads = args.record;
 
             for (let i = 0; i < leads.length; i++) {
+                let query = [];
+                if (leads[i].hasOwnProperty('email') && leads[i] !== '') {
+                    query = [
+                        {
+                            email: leads[i].email,
+                        },
+                        {
+                            phonenumber: leads[i].phonenumber,
+                        },
+                    ];
+                } else {
+                    query = [
+                        {
+                            phonenumber: leads[i].phonenumber,
+                        },
+                    ];
+                }
+                console.log(query);
                 const leadData = await Lead.findOne({
-                    $or: [
-                        {
-                            email:
-                                leads[i].email === ''
-                                    ? undefined
-                                    : leads[i].email,
-                        },
-                        {
-                            phonenumber:
-                                leads[i].phonenumber === ''
-                                    ? undefined
-                                    : leads[i].phonenumber,
-                        },
-                    ],
+                    $or: query,
                 });
 
                 if (leadData) {
@@ -54,9 +59,8 @@ const addLeads = {
                     leadData.course.indexOf(leads[i].course) === -1
                         ? leadData.course.push(leads[i].course)
                         : console.log('k');
-                    
+
                     leadData.program = leads[i].program;
-                    
 
                     console.log(leadData);
                     leadData.save();
@@ -196,32 +200,28 @@ const getLeads = {
     args: { record: 'JSON' },
     resolve: async ({ args, context: { user } }) => {
         try {
-            if(user.role != "admin"){
+            if (user.role != 'admin') {
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: user._id } },
                 }).sort({ createdAt: -1 });
                 return leads;
             }
-            console.log("outside second if")
-            if( args.record && (user.role === "admin" && args.record.callerid)) {
-                console.log(args.record.callerid)
+            console.log('outside second if');
+            if (args.record && user.role === 'admin' && args.record.callerid) {
+                console.log(args.record.callerid);
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: args.record.callerid } },
                 }).sort({ createdAt: -1 });
-                return leads
+                return leads;
             }
-            console.log("outside third if")
+            console.log('outside third if');
 
-            if(user.role === 'admin'){
+            if (user.role === 'admin') {
                 const leads = await Lead.find().sort({ createdAt: -1 });
                 return leads;
             }
-
-
-           
-            
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
     },
 };
