@@ -15,10 +15,20 @@ async function startApolloServer() {
     });
 
     await server.start();
-    server.applyMiddleware({ app, path: '/api/graphql'  });
-    await new Promise((resolve) => httpServer.listen({  port: process.env.PORT || 2022 }, resolve));
+    server.applyMiddleware({
+        app,
+        path: '/api/graphql',
+        bodyParserConfig: {
+            limit: '100mb',
+        },
+    });
+    await new Promise((resolve) =>
+        httpServer.listen({ port: process.env.PORT || 2022 }, resolve)
+    );
     console.log(
-        `🚀 Server ready at http://localhost:${process.env.PORT || 2022 }${server.graphqlPath}`
+        `🚀 Server ready at http://localhost:${process.env.PORT || 2022}${
+            server.graphqlPath
+        }`
     );
 }
 startApolloServer();
