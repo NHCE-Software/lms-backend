@@ -86,17 +86,27 @@ const addOneLead = {
     resolve: async ({ args, context: { user } }) => {
         try {
             let onelead = args.record;
-            const leadData = await Lead.findOne({
-                $or: [
-                    { email: onelead.email === '' ? undefined : onelead.email },
+            let query = [];
+            if (onelead.hasOwnProperty('email') && onelead.email !== '') {
+                query = [
                     {
-                        phonenumber:
-                            onelead.phonenumber === ''
-                                ? undefined
-                                : onelead.phonenumber,
+                        email: onelead.email,
                     },
-                ],
+                    {
+                        phonenumber: onelead.phonenumber,
+                    },
+                ];
+            } else {
+                query = [
+                    {
+                        phonenumber: onelead.phonenumber,
+                    },
+                ];
+            }
+            const leadData = await Lead.findOne({
+                $or: query,
             });
+            console.log(query);
 
             if (leadData) {
                 // Send count to analytics
