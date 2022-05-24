@@ -64,12 +64,18 @@ const addLeads = {
 
                     console.log(leadData);
                     leadData.save();
+                    return {
+                        message: 'success',
+                    };
                 } else {
                     console.log('I am there');
                     leads[i].loadedby = [user._id];
                     leads[i].loadedbyname = [user.name];
                     let newLead = new Lead({ ...leads[i] });
                     await newLead.save();
+                    return {
+                        message: 'success',
+                    };
                 }
             }
         } catch (error) {
@@ -187,6 +193,9 @@ const addCall = {
             const call = await Lead.findOneAndUpdate(
                 { _id: calldata.leadid },
                 {
+                    $set: {
+                        status: calldata.status,
+                    },
                     $push: {
                         calls: {
                             remark: calldata.remark,
