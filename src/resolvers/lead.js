@@ -195,6 +195,13 @@ const addCall = {
                 {
                     $set: {
                         status: calldata.status,
+                        name:calldata.name,
+                        email:calldata.email,
+                        city:calldata.city,
+                        source:calldata.source,
+                        phonenumber:calldata.phonenumber,
+                        course:calldata.course,
+                        program:calldata.program,
                     },
                     $push: {
                         calls: {
