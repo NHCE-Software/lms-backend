@@ -64,20 +64,20 @@ const addLeads = {
 
                     console.log(leadData);
                     leadData.save();
-                    return {
-                        message: 'success',
-                    };
+                  
                 } else {
                     console.log('I am there');
                     leads[i].loadedby = [user._id];
                     leads[i].loadedbyname = [user.name];
                     let newLead = new Lead({ ...leads[i] });
                     await newLead.save();
-                    return {
-                        message: 'success',
-                    };
+                   
                 }
+               
             }
+            return {
+                message: 'success',
+            };
         } catch (error) {
             throw new Error(error);
         }
