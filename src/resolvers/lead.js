@@ -189,34 +189,56 @@ const addCall = {
     resolve: async ({ args, context: { user } }) => {
         try {
             let calldata = args.record;
-
-            const call = await Lead.findOneAndUpdate(
-                { _id: calldata.leadid },
-                {
-                    $set: {
-                        status: calldata.status,
-                        name:calldata.name,
-                        email:calldata.email,
-                        city:calldata.city,
-                        source:calldata.source,
-                        phonenumber:calldata.phonenumber,
-                        course:calldata.course,
-                        program:calldata.program,
-                    },
-                    $push: {
-                        calls: {
-                            remark: calldata.remark,
-                            updatedby: user._id,
-                            updatedbyname: user.name,
-                            followup: calldata.followup,
+            if (calldata.calladded) {
+                const call = await Lead.findOneAndUpdate(
+                    { _id: calldata.leadid },
+                    {
+                        $set: {
+                            status: calldata.status,
+                            name: calldata.name,
+                            email: calldata.email,
+                            city: calldata.city,
+                            source: calldata.source,
+                            phonenumber: calldata.phonenumber,
+                            course: calldata.course,
+                            program: calldata.program,
                         },
-                    },
-                }
-            );
+                        $push: {
+                            calls: {
+                                remark: calldata.remark,
+                                updatedby: user._id,
+                                updatedbyname: user.name,
+                                followup: calldata.followup,
+                            },
+                        },
+                    }
+                );
+
+            }
+            else {
+                const call = await Lead.findOneAndUpdate(
+                    { _id: calldata.leadid },
+                    {
+                        $set: {
+                            status: calldata.status,
+                            name: calldata.name,
+                            email: calldata.email,
+                            city: calldata.city,
+                            source: calldata.source,
+                            phonenumber: calldata.phonenumber,
+                            course: calldata.course,
+                            program: calldata.program,
+                        },
+                        
+                    }
+                );
+            }
+
+
             return {
                 message: 'success',
             };
-        } catch (error) {}
+        } catch (error) { }
     },
 };
 
