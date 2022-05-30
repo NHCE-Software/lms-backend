@@ -1,7 +1,7 @@
 import { SchemaComposer } from 'graphql-compose';
 import db from '../utils/db';
 import { LeadMutation, LeadQuery } from './lead';
-require("../schema/relations")
+require('../schema/relations');
 
 const schemaComposer = new SchemaComposer();
 
@@ -9,13 +9,12 @@ import { UserQuery, UserMutation } from './user';
 
 schemaComposer.Query.addFields({
     ...UserQuery,
-    ...LeadQuery
-    
+    ...LeadQuery,
 });
 
 schemaComposer.Mutation.addFields({
     ...UserMutation,
-    ...LeadMutation
+    ...LeadMutation,
 });
 
 export default schemaComposer.buildSchema();

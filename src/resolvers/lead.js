@@ -64,16 +64,13 @@ const addLeads = {
 
                     console.log(leadData);
                     leadData.save();
-                  
                 } else {
                     console.log('I am there');
                     leads[i].loadedby = [user._id];
                     leads[i].loadedbyname = [user.name];
                     let newLead = new Lead({ ...leads[i] });
                     await newLead.save();
-                   
                 }
-               
             }
             return {
                 message: 'success',
@@ -181,6 +178,90 @@ const addOneLead = {
         }
     },
 };
+const addCustomLeads = {
+    name: 'addCustomLeads',
+    type: 'JSON',
+    args: { record: 'JSON' },
+
+    resolve: async ({ args, context: { user } }) => {
+        try {
+            let leads = args.record;
+
+            for (let i = 0; i < leads.length; i++) {
+                let query = [];
+                if (leads[i].hasOwnProperty('email') && leads[i].email !== '') {
+                    query = [
+                        {
+                            email: leads[i].email,
+                        },
+                        {
+                            phonenumber: leads[i].phonenumber,
+                        },
+                    ];
+                } else {
+                    query = [
+                        {
+                            phonenumber: leads[i].phonenumber,
+                        },
+                    ];
+                }
+                console.log(query);
+                const leadData = await Lead.findOne({
+                    $or: query,
+                });
+
+                if (leadData) {
+                    console.log('I am here');
+                    console.log(leadData);
+                    leadData.loadedby.indexOf(user._id.toString()) === -1
+                        ? leadData.loadedby.push(user._id)
+                        : console.log('f');
+
+                    leadData.loadedbyname.indexOf(user.name) === -1
+                        ? leadData.loadedbyname.push(user.name)
+                        : console.log('f');
+
+                    leadData.source.indexOf(leads[i].source) === -1
+                        ? leadData.source.push(leads[i].source)
+                        : console.log('j');
+
+                    leadData.course.indexOf(leads[i].course) === -1
+                        ? leadData.course.push(leads[i].course)
+                        : console.log('k');
+
+                    leadData.program = leads[i].program;
+                    leadData.calls.push({
+                        remark: leads[i].remark,
+                        updatedby: user._id,
+                        updatedbyname: user.name,
+                    });
+
+                    console.log(leadData);
+                    leadData.save();
+                } else {
+                    console.log('I am there');
+                    leads[i].loadedby = [user._id];
+                    leads[i].loadedbyname = [user.name];
+                    leads[i].calls = [
+                        {
+                            remark: leads[i].remark,
+                            updatedby: user._id,
+                            updatedbyname: user.name,
+                        },
+                    ];
+                    delete leads[i].remark;
+                    let newLead = new Lead({ ...leads[i] });
+                    await newLead.save();
+                }
+            }
+            return {
+                message: 'success',
+            };
+        } catch (error) {
+            throw new Error(error);
+        }
+    },
+};
 // Add Calls to Lead
 const addCall = {
     name: 'addCall',
@@ -213,9 +294,7 @@ const addCall = {
                         },
                     }
                 );
-
-            }
-            else {
+            } else {
                 const call = await Lead.findOneAndUpdate(
                     { _id: calldata.leadid },
                     {
@@ -229,16 +308,14 @@ const addCall = {
                             course: calldata.course,
                             program: calldata.program,
                         },
-                        
                     }
                 );
             }
 
-
             return {
                 message: 'success',
             };
-        } catch (error) { }
+        } catch (error) {}
     },
 };
 
@@ -279,4 +356,5 @@ module.exports = {
     addCall,
     getLeads,
     addOneLead,
+    addCustomLeads,
 };

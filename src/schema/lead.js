@@ -1,11 +1,18 @@
 import { authMiddleware } from '../middleware/authMiddleware';
 import { LeadTC } from '../models/lead';
-import { addLeads, addCall, getLeads, addOneLead } from '../resolvers/lead';
+import {
+    addLeads,
+    addCall,
+    getLeads,
+    addOneLead,
+    addCustomLeads,
+} from '../resolvers/lead';
 
 LeadTC.addResolver(addLeads);
 LeadTC.addResolver(addCall);
 LeadTC.addResolver(getLeads);
 LeadTC.addResolver(addOneLead);
+LeadTC.addResolver(addCustomLeads);
 LeadTC.getResolver('findMany').addFilterArg({
     name: 'bycalls',
     type: 'MongoID',
@@ -28,6 +35,7 @@ const LeadQuery = {
 const LeadMutation = {
     addleads: LeadTC.getResolver('addLeads'),
     addCall: LeadTC.getResolver('addCall'),
+    addCustomLeads: LeadTC.getResolver('addCustomLeads'),
     addOneLead: LeadTC.getResolver('addOneLead'),
     leadCreateOne: LeadTC.getResolver('createOne'),
     leadCreateMany: LeadTC.getResolver('createMany'),
