@@ -224,10 +224,14 @@ const addCustomLeads = {
                     leadData.source.indexOf(leads[i].source) === -1
                         ? leadData.source.push(leads[i].source)
                         : console.log('j');
-
-                    leadData.course.indexOf(leads[i].course) === -1
-                        ? leadData.course.push(leads[i].course)
-                        : console.log('k');
+                    if (
+                        leads[i].hasOwnProperty('course') &&
+                        leads[i].course !== ''
+                    ) {
+                        leadData.course.indexOf(leads[i].course) === -1
+                            ? leadData.course.push(leads[i].course)
+                            : console.log('k');
+                    }
 
                     leadData.program = leads[i].program;
                     leadData.calls.push({
