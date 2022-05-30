@@ -181,7 +181,7 @@ const addOneLead = {
 const addCustomLeads = {
     name: 'addCustomLeads',
     type: 'JSON',
-    args: { record: 'JSON' },
+    args: { record: '[JSON]' },
 
     resolve: async ({ args, context: { user } }) => {
         try {
