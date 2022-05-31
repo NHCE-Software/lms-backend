@@ -43,7 +43,7 @@ const LeadMutation = {
     leadUpdateOne: LeadTC.getResolver('updateOne'),
     leadUpdateMany: LeadTC.getResolver('updateMany', [authMiddleware.isAdmin]),
     leadRemoveById: LeadTC.getResolver('removeById', [authMiddleware.isAdmin]),
-    leadRemoveOne: LeadTC.getResolver('removeOne', [authMiddleware.isAdmin]), // Cann
+    leadRemoveOne: LeadTC.getResolver('removeOne'), // Cann
     leadRemoveMany: LeadTC.getResolver('removeMany', [authMiddleware.isAdmin]),
 };
 
