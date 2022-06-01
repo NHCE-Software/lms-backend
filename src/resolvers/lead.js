@@ -238,7 +238,11 @@ const addCustomLeads = {
                         remark: leads[i].remark,
                         updatedby: user._id,
                         updatedbyname: user.name,
+                        createdAt: new Date(leads[i].createdAt),
+                        updatedAt: new Date(leads[i].createdAt),
                     });
+                    leads[i].createdAt = new Date(leads[i].createdAt);
+                    leads[i].updatedAt = new Date(leads[i].createdAt);
 
                     console.log(leadData);
                     leadData.save();
@@ -251,9 +255,13 @@ const addCustomLeads = {
                             remark: leads[i].remark,
                             updatedby: user._id,
                             updatedbyname: user.name,
+                            createdAt: new Date(leads[i].createdAt),
+                            updatedAt: new Date(leads[i].createdAt),
                         },
                     ];
                     delete leads[i].remark;
+                    leads[i].createdAt = new Date(leads[i].createdAt);
+                    leads[i].updatedAt = new Date(leads[i].createdAt);
                     let newLead = new Lead({ ...leads[i] });
                     await newLead.save();
                 }
