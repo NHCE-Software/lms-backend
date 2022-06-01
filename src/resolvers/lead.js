@@ -63,11 +63,13 @@ const addLeads = {
                     leadData.program = leads[i].program;
 
                     console.log(leadData);
+                    leadData.sequenceAt = new Date();
                     leadData.save();
                 } else {
                     console.log('I am there');
                     leads[i].loadedby = [user._id];
                     leads[i].loadedbyname = [user.name];
+                    leads[i].sequenceAt = new Date();
                     let newLead = new Lead({ ...leads[i] });
                     await newLead.save();
                 }
@@ -147,6 +149,7 @@ const addOneLead = {
                 leadData.regnum12 = onelead.regnum12;
                 leadData.status = onelead.status;
                 leadData.program = onelead.program;
+                leadData.sequenceAt = new Date();
 
                 console.log(leadData);
                 leadData.save();
@@ -166,6 +169,7 @@ const addOneLead = {
                 onelead.loadedbyname = [user.name];
                 delete onelead.remark;
                 delete onelead.followup;
+                onelead.sequenceAt = new Date();
                 let newLead = new Lead({ ...onelead });
 
                 const res = await newLead.save();
@@ -332,7 +336,7 @@ const getLeads = {
             if (user.role != 'admin') {
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: user._id } },
-                }).sort({ createdAt: -1 });
+                }).sort({ sequenceAt: -1 });
                 return leads;
             }
             console.log('outside second if');
@@ -340,13 +344,13 @@ const getLeads = {
                 console.log(args.record.callerid);
                 const leads = await Lead.find({
                     loadedby: { $elemMatch: { $eq: args.record.callerid } },
-                }).sort({ createdAt: -1 });
+                }).sort({ sequenceAt: -1 });
                 return leads;
             }
             console.log('outside third if');
 
             if (user.role === 'admin') {
-                const leads = await Lead.find().sort({ createdAt: -1 });
+                const leads = await Lead.find().sort({ sequenceAt: -1 });
                 return leads;
             }
         } catch (error) {

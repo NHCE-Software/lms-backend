@@ -62,35 +62,38 @@ export const LeadSchema = new Schema(
             type: [String],
             trim: true,
         },
-        program:{
+        program: {
             type: String,
-            trim:true,
+            trim: true,
         },
         source: {
             type: [String],
             trim: true,
         },
 
-        phonenumber2:{
+        phonenumber2: {
             type: String,
         },
 
         admcateg: {
             type: String,
         },
-        address:{
+        address: {
             type: String,
         },
-        reference:{
+        reference: {
             type: [String],
         },
-        nameofboard:{
+        nameofboard: {
             type: String,
         },
-        regnum12:{
+        regnum12: {
             type: String,
         },
-        
+        sequenceAt: {
+            type: Date,
+        },
+
         calls: [CallsSchema],
     },
     {
