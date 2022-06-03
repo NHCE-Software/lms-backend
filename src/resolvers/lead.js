@@ -131,9 +131,9 @@ const addOneLead = {
                 leadData.loadedbyname.indexOf(user.name) === -1
                     ? leadData.loadedbyname.push(user.name)
                     : console.log('f');
-                for (let i = 0; i < leads[i].phonenumber.length; i++) {
-                    leadData.phonenumber.indexOf(leads.phonenumber[i]) === -1
-                        ? leadData.phonenumber.push(leads.phonenumber[i])
+                for (let i = 0; i < onelead.phonenumber.length; i++) {
+                    leadData.phonenumber.indexOf(onelead.phonenumber[i]) === -1
+                        ? leadData.phonenumber.push(onelead.phonenumber[i])
                         : console.log('k');
                 }
 
