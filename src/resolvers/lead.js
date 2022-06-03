@@ -264,7 +264,7 @@ const addCustomLeads = {
                     });
                     leadData.createdAt = new Date(leads[i].createdAt);
                     leadData.updatedAt = new Date(leads[i].createdAt);
-                    leadData.sequenceAt = new Date();
+                    leadData.sequenceAt = new Date(leads[i].createdAt);
 
                     console.log(leadData);
                     leadData.save();
@@ -284,7 +284,7 @@ const addCustomLeads = {
                     delete leads[i].remark;
                     leads[i].createdAt = new Date(leads[i].createdAt);
                     leads[i].updatedAt = new Date(leads[i].createdAt);
-                    leads[i].sequenceAt = new Date();
+                    leads[i].sequenceAt = new Date(leads[i].createdAt);
                     let newLead = new Lead({ ...leads[i] });
                     await newLead.save();
                 }
