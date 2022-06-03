@@ -52,6 +52,13 @@ const addLeads = {
                         ? leadData.loadedbyname.push(user.name)
                         : console.log('f');
 
+                    for (let i = 0; i < leads[i].phonenumber.length; i++) {
+                        leadData.phonenumber.indexOf(leads.phonenumber[i]) ===
+                        -1
+                            ? leadData.phonenumber.push(leads.phonenumber[i])
+                            : console.log('k');
+                    }
+
                     leadData.source.indexOf(leads[i].source) === -1
                         ? leadData.source.push(leads[i].source)
                         : console.log('j');
@@ -124,6 +131,11 @@ const addOneLead = {
                 leadData.loadedbyname.indexOf(user.name) === -1
                     ? leadData.loadedbyname.push(user.name)
                     : console.log('f');
+                for (let i = 0; i < leads[i].phonenumber.length; i++) {
+                    leadData.phonenumber.indexOf(leads.phonenumber[i]) === -1
+                        ? leadData.phonenumber.push(leads.phonenumber[i])
+                        : console.log('k');
+                }
 
                 for (let i = 0; i < onelead.course.length; i++) {
                     leadData.course.indexOf(onelead.course[i]) === -1
@@ -224,7 +236,12 @@ const addCustomLeads = {
                     leadData.loadedbyname.indexOf(user.name) === -1
                         ? leadData.loadedbyname.push(user.name)
                         : console.log('f');
-
+                    for (let i = 0; i < leads[i].phonenumber.length; i++) {
+                        leadData.phonenumber.indexOf(leads.phonenumber[i]) ===
+                        -1
+                            ? leadData.phonenumber.push(leads.phonenumber[i])
+                            : console.log('k');
+                    }
                     leadData.source.indexOf(leads[i].source) === -1
                         ? leadData.source.push(leads[i].source)
                         : console.log('j');
@@ -245,8 +262,9 @@ const addCustomLeads = {
                         createdAt: new Date(leads[i].createdAt),
                         updatedAt: new Date(leads[i].createdAt),
                     });
-                    leads[i].createdAt = new Date(leads[i].createdAt);
-                    leads[i].updatedAt = new Date(leads[i].createdAt);
+                    leadData.createdAt = new Date(leads[i].createdAt);
+                    leadData.updatedAt = new Date(leads[i].createdAt);
+                    leadData.sequenceAt = new Date();
 
                     console.log(leadData);
                     leadData.save();
@@ -266,6 +284,7 @@ const addCustomLeads = {
                     delete leads[i].remark;
                     leads[i].createdAt = new Date(leads[i].createdAt);
                     leads[i].updatedAt = new Date(leads[i].createdAt);
+                    leads[i].sequenceAt = new Date();
                     let newLead = new Lead({ ...leads[i] });
                     await newLead.save();
                 }
@@ -332,6 +351,15 @@ const addCall = {
                 message: 'success',
             };
         } catch (error) {}
+    },
+};
+
+const ngl = {
+    name: 'ngl',
+    type: 'String',
+    resolve: async ({ context: { user } }) => {
+        const leads = await Lead.find({});
+        for (let i = 0; i < leads.length; i++) {}
     },
 };
 

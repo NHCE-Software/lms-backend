@@ -50,7 +50,7 @@ export const LeadSchema = new Schema(
             trim: true,
         },
         phonenumber: {
-            type: String,
+            type: [String],
             trim: true,
         },
         status: {
