@@ -53,9 +53,9 @@ const addLeads = {
                         : console.log('f');
 
                     for (let j = 0; j < leads[i].phonenumber.length; j++) {
-                        leadData.phonenumber.indexOf(leads.phonenumber[i]) ===
+                        leadData.phonenumber.indexOf(leads[i].phonenumber[j]) ===
                         -1
-                            ? leadData.phonenumber.push(leads.phonenumber[i])
+                            ? leadData.phonenumber.push(leads[i].phonenumber[j])
                             : console.log('k');
                     }
 
@@ -237,9 +237,9 @@ const addCustomLeads = {
                         ? leadData.loadedbyname.push(user.name)
                         : console.log('f');
                     for (let j = 0; j < leads[i].phonenumber.length; j++) {
-                        leadData.phonenumber.indexOf(leads.phonenumber[i]) ===
+                        leadData.phonenumber.indexOf(leads[i].phonenumber[j]) ===
                         -1
-                            ? leadData.phonenumber.push(leads.phonenumber[i])
+                            ? leadData.phonenumber.push(leads[i].phonenumber[j])
                             : console.log('k');
                     }
                     leadData.source.indexOf(leads[i].source) === -1
