@@ -26,13 +26,13 @@ const addLeads = {
                             email: leads[i].email,
                         },
                         {
-                            phonenumber: leads[i].phonenumber,
+                            phonenumber: leads[i].phonenumber[0],
                         },
                     ];
                 } else {
                     query = [
                         {
-                            phonenumber: leads[i].phonenumber,
+                            phonenumber: leads[i].phonenumber[0],
                         },
                     ];
                 }
@@ -105,13 +105,13 @@ const addOneLead = {
                         email: onelead.email,
                     },
                     {
-                        phonenumber: onelead.phonenumber,
+                        phonenumber: onelead.phonenumber[0]
                     },
                 ];
             } else {
                 query = [
                     {
-                        phonenumber: onelead.phonenumber,
+                           phonenumber: onelead.phonenumber[0]
                     },
                 ];
             }
@@ -211,13 +211,13 @@ const addCustomLeads = {
                             email: leads[i].email,
                         },
                         {
-                            phonenumber: leads[i].phonenumber,
+                            phonenumber: leads[i].phonenumber[0],
                         },
                     ];
                 } else {
                     query = [
                         {
-                            phonenumber: leads[i].phonenumber,
+                            phonenumber: leads[i].phonenumber[0],
                         },
                     ];
                 }

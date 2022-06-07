@@ -1,0 +1,74 @@
+[
+  {
+    _id: ObjectId("627b64cdd94fabbc1de5e4a5"),
+    name: 'maintain-admin',
+    email: 'maintain-admin',
+    password: '$2a$10$fzaAWgpVrzx8aZP7QhIV/ud8a5YYZ5ZKNK.2D1LMe1FG/iyY/eBoy',
+    role: 'admin',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281cacb069c31674d9b9c55"),
+    name: 'Vidya',
+    email: 'vidya',
+    password: '$2a$10$qoQz68J60HFAjiaYBzU4Q.pPCMpSch31Vah3YQ95v9vv79LCEa1PC',
+    role: 'caller',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281ea82e154585c32d7458a"),
+    name: 'Director of Admissions',
+    email: 'director',
+    password: '$2a$10$OatejPckal9DqoHUDoEDv.m2znjv1K1gtJjc7lGHzfr8SUqRmbsha',
+    role: 'admin',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281eb8ae154585c32d745a5"),
+    name: 'maintain-caller',
+    email: 'maintain-caller',
+    password: '$2a$10$KSCixUer4AeEZv5cEkWZ5.v1stu6.lHUacNdVZpMpJKvFUlLn8ZaC',
+    role: 'caller',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281f6abe154585c32d75078"),
+    name: 'Deepika',
+    email: 'deepika',
+    password: '$2a$10$qWDHmy7L7SbfcvWvdmgIhOFZcWWu4PZ5b6BvQ7fY6dhJyqm/VOt9O',
+    role: 'caller',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281f6b4e154585c32d7507d"),
+    name: 'Tulsi',
+    email: 'tulsi',
+    password: '$2a$10$/y1nnJRLaQ31dnPpAMrLMus6U0niEPuPOeDDBVPFeqAoTXDCnYJj2',
+    role: 'caller',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281f6eae154585c32d75082"),
+    name: 'Arpita N',
+    email: 'arpitan',
+    password: '$2a$10$LcCB0/zXrJpKbhKSjZZ5He1rH.E5l9N.95hwQft72vyk.nZlcSdZ2',
+    role: 'caller',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281f6fae154585c32d75087"),
+    name: 'Arpita Mitra',
+    email: 'arpitamitra',
+    password: '$2a$10$mzXz7Bbw7QpmX8VJbumQauRwYEZjPasVZpQdb4RsIZXw1m7.0fPI.',
+    role: 'caller',
+    __v: 0
+  },
+  {
+    _id: ObjectId("6281f705e154585c32d7508c"),
+    name: 'Divya',
+    email: 'divya',
+    password: '$2a$10$i6wHXlQfEP1Vf/VBg3ZgKeNmR6eYF14AUN1DljNXV1eSR790nwPp2',
+    role: 'caller',
+    __v: 0
+  }
+]
